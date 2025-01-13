@@ -1,14 +1,16 @@
 ﻿using Casino.PlayerNamespace;
-using Casino;
-using System.Runtime.ExceptionServices;
+using Casino.UI;
 namespace Casino
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+            Menu mainMenu = new Menu();
             Player player = new Player(100);
             SlotMachine slots = new SlotMachine();
+
+            mainMenu.DisplayMenu();
 
             for (int i = 0; i < 10; i++)
             {
