@@ -8,15 +8,23 @@ namespace Casino.UI
 {
     public class Menu
     {
-        List<string> menuText;
-        public Menu() {
+        private List<string> menuText;
+        private char borderCharacter { get; set; }
+        public Menu(params string [] menuOptions) {
             menuText = new List<string>();
-            InitializeMenu();
+            this.borderCharacter = '=';
+            InitializeMenu(menuOptions);
+        }
+        public Menu(char borderCharacter, params string[] menuOptions)
+        {
+            menuText = new List<string>();
+            this.borderCharacter = borderCharacter;
+
         }
         public void DisplayMenu()
         {
             int longestLineLength = GetLongestLineLength();
-            PrintBorder('=', longestLineLength);
+            PrintBorder(this.borderCharacter, longestLineLength);
             for (int i = 0; i < menuText.Count; i++)
             {
                 Console.WriteLine(menuText[i]);
@@ -43,11 +51,12 @@ namespace Casino.UI
             }
             return longestLine;
         }
-        public void InitializeMenu()
+        public void InitializeMenu(params string[] menuOptions)
         {
-            menuText.Add("C A S I N O");
-            menuText.Add("1. Play Solitaire");
-            menuText.Add("2. (or Q). Quit");
+            foreach (var option in menuOptions)
+            {
+                this.menuText.Add(option);
+            }
         }
     }
 }
