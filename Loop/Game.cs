@@ -22,8 +22,18 @@ namespace Casino.Loop
         public Game(Player player)
         {
             this.player = player;
-            this.mainMenu = new Menu();
+            InitilizeMainMenu();
+
         }
+
+        private void InitilizeMainMenu()
+        {
+            this.mainMenu = new Menu(
+                            "Casino",
+                            "1. Play Solitaire",
+                            "2. (or Q) to quit");
+        }
+
         public void InitializeValidMenuKeys()
         {
             this.validMenuKeys = new Dictionary<MainMenuOptions, ConsoleKey>();
