@@ -1,4 +1,5 @@
-﻿using Casino.PlayerNamespace;
+﻿using Casino.Loop;
+using Casino.PlayerNamespace;
 using Casino.UI;
 namespace Casino
 {
@@ -6,25 +7,28 @@ namespace Casino
     {
         static void Main(string[] args)
         {
-            Menu mainMenu = new Menu();
+            //Menu mainMenu = new Menu();
+            //Player player = new Player(100);
+            //SlotMachine slots = new SlotMachine();
+
+            //mainMenu.DisplayMenu();
+
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    if (slots.ValidWager(player, 10))
+            //    {
+            //        Console.WriteLine("Spinning " + (i + 1) + " time");
+            //        slots.SpinReels();
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("invalid wager.");
+            //    }
+            //    Console.WriteLine();
+            //}
             Player player = new Player(100);
-            SlotMachine slots = new SlotMachine();
-
-            mainMenu.DisplayMenu();
-
-            for (int i = 0; i < 10; i++)
-            {
-                if (slots.ValidWager(player, 10))
-                {
-                    Console.WriteLine("Spinning " + (i + 1) + " time");
-                    slots.SpinReels();
-                }
-                else
-                {
-                    Console.WriteLine("invalid wager.");
-                }
-                Console.WriteLine();
-            }
+            Game game = new Game(player);
+            game.Run();
             
         }
     }
