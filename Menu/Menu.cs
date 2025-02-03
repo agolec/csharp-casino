@@ -8,28 +8,33 @@ namespace Casino.UI
 {
     public class Menu
     {
-        private List<string> menuText;
-        private char borderCharacter { get; set; }
-        public Menu(params string [] menuOptions) {
-            menuText = new List<string>();
-            this.borderCharacter = '=';
-            InitializeMenu(menuOptions);
+        private List<string> _menuOptions;
+        private char _borderCharacter { get; set; }
+        public Menu(string title, params string[] menuOptions)
+        {
+            this._menuOptions = new List<string>();
+            this._borderCharacter = '=';
+            InitializeMenu(title, true, menuOptions);
+        }
+        public Menu(string title, bool quitOption,params string[] menuOptions) {
+            this._menuOptions = new List<string>();
+            this._borderCharacter = '=';
+            InitializeMenu(title, quitOption,menuOptions);
         }
         public Menu(char borderCharacter, params string[] menuOptions)
         {
-            menuText = new List<string>();
-            this.borderCharacter = borderCharacter;
-
+            this._menuOptions = new List<string>();
+            this._borderCharacter = borderCharacter;
         }
         public void DisplayMenu()
         {
             int longestLineLength = GetLongestLineLength();
-            PrintBorder(this.borderCharacter, longestLineLength);
-            for (int i = 0; i < menuText.Count; i++)
+            PrintBorder(this._borderCharacter, longestLineLength);
+            for (int i = 0; i < _menuOptions.Count; i++)
             {
-                Console.WriteLine(menuText[i]);
+                Console.WriteLine(_menuOptions[i]);
             }
-            PrintBorder('=',longestLineLength);
+            PrintBorder(this._borderCharacter,longestLineLength);
         }
         public void PrintBorder(char borderCharacter, int longestLineLength)
         {
@@ -42,20 +47,25 @@ namespace Casino.UI
         public int GetLongestLineLength()
         {
             int longestLine = 0;
-            for(int i = 0; i < menuText.Count; i++)
+            for(int i = 0; i < _menuOptions.Count; i++)
             {
-                if(longestLine < menuText[i].Length)
+                if(longestLine < _menuOptions[i].Length)
                 {
-                    longestLine = menuText[i].Length;
+                    longestLine = _menuOptions[i].Length;
                 }
             }
             return longestLine;
         }
-        public void InitializeMenu(params string[] menuOptions)
+        public void InitializeMenu(string title, bool quit, params string[] menuOptions)
         {
+            this._menuOptions.Add(title);
             foreach (var option in menuOptions)
             {
-                this.menuText.Add(option);
+                this._menuOptions.Add(option);
+            }
+            if (quit)
+            {
+                this._menuOptions.Add("Q: quit");
             }
         }
     }
