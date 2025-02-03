@@ -13,11 +13,11 @@ namespace Casino.Loop
         Player player;
         Menu mainMenu;
         ConsoleKeyInfo mainMenuOption;
-        Dictionary<MainMenuOptions, ConsoleKey> validMenuKeys;
         private enum MainMenuOptions
         {
-            SLOTS,
-            EXIT
+            SOLITARE = 1,
+            SLOTS = 2,
+            EXIT = 3
         }
         public Game(Player player)
         {
@@ -30,49 +30,43 @@ namespace Casino.Loop
         {
             this.mainMenu = new Menu(
                             "Casino",
-                            "1. Play Solitaire",
-                            "2. (or Q) to quit");
+                            "Play Solitaire",
+                            "Play Slots");
         }
 
-        public void InitializeValidMenuKeys()
-        {
-            this.validMenuKeys = new Dictionary<MainMenuOptions, ConsoleKey>();
-            this.validMenuKeys.Add(MainMenuOptions.SLOTS, ConsoleKey.D1);
-            this.validMenuKeys.Add(MainMenuOptions.EXIT, ConsoleKey.Q);
-        }
+        
         public void Run()
         {
             bool running = true;
             string userInput;
             do
             {
-                mainMenu.DisplayMenu();
-                userInput = Console.ReadLine();
-                if (!string.IsNullOrEmpty(userInput))
-                {
-                    switch (userInput.ToLower())
-                    {
-                        case "1":
-                        case "one":
-                            PlaySlots();
-                            break;
-                        case "q":
-                        case "quit":
-                            running = false;
-                            break;
-                    }
 
+                switch (this.mainMenu.GetUserSelection())
+                {
+                    case (int)MainMenuOptions.SOLITARE:
+                        Console.WriteLine("ToDo: make Solitare game.");
+                        break;
+                    case (int)MainMenuOptions.SLOTS:
+                        Console.WriteLine("going to play slots.");
+                        PlaySlots();
+                        break;
+                    case (int)MainMenuOptions.EXIT:
+                        Console.WriteLine("Exiting program.");
+                        running = false;
+                        break;
                 }
             } while (running);
         }
         void PlaySlots()
         {
-            SlotMachine slots = new SlotMachine();
-            placeBet(slots);
+            //SlotMachine slots = new SlotMachine();
+            //placeBet(slots);
+            Console.WriteLine("ToDo: implement slots.");
         }
-        int placeBet(SlotMachine slots)
+        public int placeBet(SlotMachine slots)
         {
-            int bet;
+            int bet = 0;
             bool validWager = false;
             Console.WriteLine("Place your bet: ");
             do
