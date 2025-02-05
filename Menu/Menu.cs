@@ -8,46 +8,106 @@ namespace Casino.UI
 {
     public class Menu
     {
-        List<string> menuText;
-        public Menu() {
-            menuText = new List<string>();
-            InitializeMenu();
-        }
-        public void DisplayMenu()
+        private List<string> _menuOptions;
+        private string _title { set; get; }
+        private char _borderCharacter { get; set; }
+        private int _longestMenuOption { get; set; }
+        /// <summary>
+        /// Menu constructor which adds an implicit Quit option.
+        /// </summary>
+        /// <param name="title">Title of your menu</param>
+        /// <param name="menuOptions">Options in your menu. This constructor will add a "Quit" option as the final menu choice.</param>
+        public Menu(string title, params string[] menuOptions)
         {
-            int longestLineLength = GetLongestLineLength();
-            PrintBorder('=', longestLineLength);
-            for (int i = 0; i < menuText.Count; i++)
+            this._menuOptions = new List<string>();
+            this._borderCharacter = '=';
+            this._title = title;
+            InitializeMenu(true, menuOptions);
+            this._longestMenuOption = GetLongestLineLength();
+        }
+        public Menu(string title, bool quitOption,params string[] menuOptions) {
+            this._menuOptions = new List<string>();
+            this._borderCharacter = '=';
+            this._title = title;
+            InitializeMenu(quitOption,menuOptions);
+        }
+        //public Menu(char borderCharacter, params string[] menuOptions)
+        //{
+        //    this._menuOptions = new List<string>();
+        //    this._borderCharacter = borderCharacter;
+        //}
+        public void PrintTitle()
+        {
+            Console.WriteLine(this._title);
+        }
+        private void DisplayMenu()
+        {
+
+            PrintBorder(this._borderCharacter, this._longestMenuOption);
+            for (int i = 0; i < this._menuOptions.Count; i++)
             {
-                Console.WriteLine(menuText[i]);
+                Console.WriteLine($"{(i+1)}) {this._menuOptions[i]}");
             }
-            PrintBorder('=',longestLineLength);
+            PrintBorder(this._borderCharacter,this._longestMenuOption);
         }
         public void PrintBorder(char borderCharacter, int longestLineLength)
         {
-            for(int i = 0; i < longestLineLength; i++)
+            Console.Write(" ");
+            for(int i = 0; i < (longestLineLength); i++)
             {
                 Console.Write(borderCharacter);
             }
+            Console.Write(" ");
             Console.WriteLine(); 
         }
         public int GetLongestLineLength()
         {
             int longestLine = 0;
-            for(int i = 0; i < menuText.Count; i++)
+            for(int i = 0; i < _menuOptions.Count; i++)
             {
-                if(longestLine < menuText[i].Length)
+                if(longestLine < _menuOptions[i].Length)
                 {
-                    longestLine = menuText[i].Length;
+                    longestLine = _menuOptions[i].Length;
                 }
             }
             return longestLine;
         }
-        public void InitializeMenu()
+        public void InitializeMenu(bool quit, params string[] menuOptions)
         {
-            menuText.Add("C A S I N O");
-            menuText.Add("1. Play Solitaire");
-            menuText.Add("2. (or Q). Quit");
+            foreach (var option in menuOptions)
+            {
+                this._menuOptions.Add(option);
+            }
+            if (quit)
+            {
+                this._menuOptions.Add("quit");
+            }
+        }
+        public int GetUserSelection()
+        {
+            
+            bool validInput = false;
+            bool hasQuitOption = _menuOptions.Contains("quit");
+            while (true)
+            {
+                
+                DisplayMenu();
+                Console.Write("Enter your choice: ");
+                string input = Console.ReadLine()?.Trim().ToLower();
+
+                if (hasQuitOption &&
+                    (input == "q" || input == "quit")){
+                    Console.WriteLine("Exiting menu...");
+                    return -1;
+                }
+                if(int.TryParse(input, out int choice) && choice >= 1 && choice <= _menuOptions.Count)
+                {
+                    return choice;
+                }
+
+                Console.WriteLine("Invalid selection. Please enter a valid number" + (hasQuitOption ? " or q or quit to quit." : "."));
+
+            }
         }
     }
 }
