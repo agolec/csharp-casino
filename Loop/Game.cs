@@ -6,27 +6,21 @@ using System.Threading.Tasks;
 using Casino.PlayerNamespace;
 using Casino.UI;
 using Casino.UI.Menus;
+using Casino.UI.Handlers;
 
 namespace Casino.Loop
 {
     internal class Game
     {
-        Player player;
-        private Menu _mainMenu;
+        private Player _player;
+        private MenuHandler _menuHandler;
         ConsoleKeyInfo mainMenuOption;
       
-        public Game(Player player)
+        public Game(Player player, MenuHandler menuHandler)
         {
-            this.player = player;
-            InitilizeMainMenu();
+            this._player = player;
+            this._menuHandler = menuHandler;
 
-        }
-        private void InitilizeMainMenu()
-        {
-            this._mainMenu = new Menu(
-                            "Casino",
-                            "Play Solitaire",
-                            "Play Slots");
         }
 
         public void Run()
@@ -36,7 +30,7 @@ namespace Casino.Loop
             do
             {
 
-                switch (this._mainMenu.GetUserSelection())
+                switch (this._menuHandler.GetMainMenuSelection())
                 {
                     case (int)MainMenuOptions.SOLITARE:
                         Console.WriteLine("ToDo: make Solitare game.");
@@ -68,7 +62,7 @@ namespace Casino.Loop
                 try
                 {
                     bet = int.Parse(Console.ReadLine());
-                    if (slots.ValidWager(this.player, bet)){
+                    if (slots.ValidWager(this._player, bet)){
                         validWager = true;
                     }
                     else
