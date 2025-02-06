@@ -1,34 +1,20 @@
 ﻿using Casino.Loop;
 using Casino.PlayerNamespace;
 using Casino.UI;
+using Casino.UI.Handlers;
+using System.Runtime.CompilerServices;
 namespace Casino
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            //Menu mainMenu = new Menu();
-            //Player player = new Player(100);
-            //SlotMachine slots = new SlotMachine();
-
-            //mainMenu.DisplayMenu();
-
-            //for (int i = 0; i < 10; i++)
-            //{
-            //    if (slots.ValidWager(player, 10))
-            //    {
-            //        Console.WriteLine("Spinning " + (i + 1) + " time");
-            //        slots.SpinReels();
-            //    }
-            //    else
-            //    {
-            //        Console.WriteLine("invalid wager.");
-            //    }
-            //    Console.WriteLine();
-            //}
-            Player player = new Player(100);
-            Game game = new Game(player);
-            game.Run();
+            
+        Player player = new Player(100);
+        MenuHandler menuHandler = new MenuHandler();
+        Game game = new Game(player, menuHandler);
+        
+        game.Run();
             
         }
     }
