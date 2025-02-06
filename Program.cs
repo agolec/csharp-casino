@@ -1,6 +1,7 @@
 ﻿using Casino.Loop;
 using Casino.PlayerNamespace;
 using Casino.UI;
+using Casino.UI.Handlers;
 using System.Runtime.CompilerServices;
 namespace Casino
 {
@@ -9,13 +10,9 @@ namespace Casino
         static void Main(string[] args)
         {
             
-            Menu mainMenu = new Menu(
-                                "Casino",
-                                "Play Solitaire",
-                                "Play Slots");
-        
         Player player = new Player(100);
-        Game game = new Game(player, mainMenu);
+        MenuHandler menuHandler = new MenuHandler();
+        Game game = new Game(player, menuHandler);
         
         game.Run();
             
