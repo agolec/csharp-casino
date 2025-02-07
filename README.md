@@ -13,3 +13,7 @@ Project Structure:
 	-Game.cs - Highest level of the project hierarchy.
 	-Slots.cs - Contains logic for behavior of a basic 3 x 3 slot machine.
 	-Helper classes (Handlers for menu containment)
+
+Feature Tracking:
+
+Trello: https://trello.com/b/nFogLy6p/casino
