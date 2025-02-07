@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Casino.PlayerNamespace;
 
 namespace Casino
@@ -13,6 +14,14 @@ namespace Casino
         const string FIFTH_BRACKET = "FifthBracket";
         const string SIXTH_BRACKET = "SixthBracket";
         const string SEVENTH_BRACKET = "SeventhBracket";
+
+        private enum WIN_LINES {
+            FORWARD_SLASH,
+            BACK_SLASH,
+            TOP_ROW_ROW,
+            MIDDLE_ROW,
+            BOTTOM_ROW
+        }
 
         private List<string> reelGraphics; // List of symbols represented by strings
         private int[,] reels;          // 3x3 grid for the reels
@@ -80,6 +89,7 @@ namespace Casino
         // Spin the reels
         public void SpinReels()
         {
+            bool won = false;
             Random rng = new Random();
             for(int i = 0; i < this.reels.GetLength(0); i++)
             {
@@ -89,6 +99,12 @@ namespace Casino
                 }
             }
             DisplayReels();
+            List<WIN_LINES> winnings = new List<WIN_LINES>();
+            winnings = CheckWinningCombinations();
+            if (winnings != null || winnings.Count != 0)
+            {
+                won = true;
+            }
         }
 
         // Display the reels grid
@@ -110,9 +126,31 @@ namespace Casino
         }
 
         // Check all possible winning combinations
-        private string CheckWinningCombinations()
+        private List<WIN_LINES> CheckWinningCombinations()
         {
-            return "";
+            List<WIN_LINES> linesWon = new List<WIN_LINES>();
+            if (IsMatching(this.reels[0, 0], this.reels[0, 1], this.reels[0, 2]))
+            {
+                linesWon.Add(WIN_LINES.TOP_ROW_ROW);
+            }
+            if (IsMatching(this.reels[1, 0], this.reels[1, 1], this.reels[1, 2]))
+            {
+                linesWon.Add(WIN_LINES.MIDDLE_ROW);
+            }
+            if (IsMatching(this.reels[2, 0], this.reels[2, 1], this.reels[2, 2]))
+            {
+                linesWon.Add(WIN_LINES.BOTTOM_ROW);
+            }
+            //Conditions for diagonals.
+            if (IsMatching(this.reels[0, 0], this.reels[1, 1], this.reels[2, 2]))
+            {
+                linesWon.Add(WIN_LINES.FORWARD_SLASH);
+            }
+            if (IsMatching(this.reels[2,0], this.reels[1, 1],,this.reels[0, 2]))
+            {
+                linesWon.Add(WIN_LINES.BACK_SLASH);
+            }
+            return linesWon;
         }
 
         // Check if three symbols match.
@@ -125,6 +163,39 @@ namespace Casino
             }
             //If above check passes, we can check whether b is == to c, since it will be known that a == c by then.
             return b == c;
+        }
+        public int placeBet(Player player)
+        {
+            int bet = 0;
+            bool validWager = false;
+            Console.WriteLine("Place your bet: ");
+            do
+            {
+                try
+                {
+                    bet = int.Parse(Console.ReadLine());
+                    if (this.ValidWager(player, bet))
+                    {
+                        validWager = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid wager.");
+                        Console.WriteLine("Place your bet: ");
+                    }
+
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine("Error: bet must be numeric");
+                    Console.WriteLine("Place your bet: ");
+                }
+            } while (!validWager);
+            return bet;
+        }
+        public void PayoutToPlayer()
+        {
+            //todo
         }
     }
 }
