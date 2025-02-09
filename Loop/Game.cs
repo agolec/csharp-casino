@@ -14,7 +14,6 @@ namespace Casino.Loop
     {
         private Player _player;
         private MenuHandler _menuHandler;
-        ConsoleKeyInfo mainMenuOption;
       
         public Game(Player player, MenuHandler menuHandler)
         {
@@ -26,7 +25,6 @@ namespace Casino.Loop
         public void Run()
         {
             bool running = true;
-            string userInput;
             do
             {
 
@@ -48,7 +46,7 @@ namespace Casino.Loop
         }
         void PlaySlots()
         {
-            SlotLoop();
+            DisplaySlotMenu();
         }
 
         private void SlotLoop()
@@ -61,6 +59,35 @@ namespace Casino.Loop
                 slots.SpinReels();
             } while (!this._player.playerBankEmpty());
 
+        }
+        private void DisplaySlotMenu()
+        {
+            bool running = true;
+            do
+            {
+                switch (_menuHandler.GetSlotsMenuSelection())
+                {
+                        case (int)SlotsMenuOptions.PLACE_BET:
+                            Console.WriteLine("Going to place bet;");
+                            SlotLoop();
+                            break;
+                        case (int)SlotsMenuOptions.CHECK_BALANCE:
+                            Console.WriteLine("Checking balance: ");
+                            break;
+                        case (int)SlotsMenuOptions.VIEW_PAYOUT:
+                            Console.WriteLine("Viewing payout...");
+                            break;
+                        case (int)SlotsMenuOptions.CHANGE_BET:
+                            Console.WriteLine("Changing Bet");
+                            break;
+                        case (int)SlotsMenuOptions.AUTO_SPIN:
+                            Console.WriteLine("Auto spin");
+                            break;
+                        case (int)SlotsMenuOptions.EXIT_TO_MAIN_MENU:
+                            running = false;
+                            break;
+                }
+            } while (running);
         }
     }
 }
