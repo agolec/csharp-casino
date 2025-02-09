@@ -10,6 +10,6 @@ namespace Casino.UI.Menus
     {
         SOLITARE = 1,
         SLOTS = 2,
-        EXIT = 3
+        EXIT = -1
     }
 }
