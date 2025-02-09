@@ -48,37 +48,16 @@ namespace Casino.Loop
         }
         void PlaySlots()
         {
-            //SlotMachine slots = new SlotMachine();
-            //placeBet(slots);
-            Console.WriteLine("ToDo: implement slots.");
-        }
-        public int placeBet(SlotMachine slots)
-        {
-            int bet = 0;
-            bool validWager = false;
-            Console.WriteLine("Place your bet: ");
+            SlotMachine slots = new SlotMachine();
+            bool bankEmpty = this._player.playerBankEmpty();
             do
             {
-                try
-                {
-                    bet = int.Parse(Console.ReadLine());
-                    if (slots.ValidWager(this._player, bet)){
-                        validWager = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid wager.");
-                        Console.WriteLine("Place your bet: ");
-                    }
-
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine("Error: bet must be numeric");
-                    Console.WriteLine("Place your bet: ");
-                }
-            } while (!validWager);
-            return bet;
+                slots.placeBet(this._player);
+                slots.SpinReels();
+            } while (this._player.playerBankEmpty());
+            
+            Console.WriteLine("ToDo: implement slots.");
         }
+       
     }
 }

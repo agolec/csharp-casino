@@ -17,5 +17,23 @@ namespace Casino.PlayerNamespace
         {
             return bank == 0;
         }
+        public bool negativeBet(int betAmount)
+        {
+            return (betAmount < 0);
+        }
+        public bool validBet(int betAmount)
+        {
+            if (negativeBet)
+            {
+                Console.WriteLine($"Invalid bet: bet '{betAmount}' is negative.");
+                return false;
+            }
+            else if (betAmount > this.bank)
+            {
+                Console.WriteLine($"Invalid bet: bet amount '{betAmount}' is greater than player bank: '{this.bank}'.");
+                return false;
+            }
+            else return true;
+        }
     }
 }
