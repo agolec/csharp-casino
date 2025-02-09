@@ -146,7 +146,7 @@ namespace Casino
             {
                 linesWon.Add(WIN_LINES.FORWARD_SLASH);
             }
-            if (IsMatching(this.reels[2,0], this.reels[1, 1],,this.reels[0, 2]))
+            if (IsMatching(this.reels[2,0], this.reels[1, 1],this.reels[0, 2]))
             {
                 linesWon.Add(WIN_LINES.BACK_SLASH);
             }
@@ -169,30 +169,41 @@ namespace Casino
             int bet = 0;
             bool validWager = false;
             Console.WriteLine("Place your bet: ");
-            do
-            {
-                try
-                {
-                    bet = int.Parse(Console.ReadLine());
-                    if (this.ValidWager(player, bet))
-                    {
-                        validWager = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid wager.");
-                        Console.WriteLine("Place your bet: ");
-                    }
-
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine("Error: bet must be numeric");
-                    Console.WriteLine("Place your bet: ");
-                }
-            } while (!validWager);
+            PromptUntilBetIsValid(player, ref bet, ref validWager);
             return bet;
         }
+
+        private void PromptUntilBetIsValid(Player player, ref int bet, ref bool validWager)
+        {
+            do
+            {
+                GetBetInput(player, ref bet, ref validWager);
+            } while (!validWager);
+        }
+
+        private void GetBetInput(Player player, ref int bet, ref bool validWager)
+        {
+            try
+            {
+                bet = int.Parse(Console.ReadLine());
+                if (this.ValidWager(player, bet))
+                {
+                    validWager = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid wager.");
+                    Console.WriteLine("Place your bet: ");
+                }
+
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine("Error: bet must be numeric");
+                Console.WriteLine("Place your bet: ");
+            }
+        }
+
         public void PayoutToPlayer()
         {
             //todo
