@@ -9,6 +9,7 @@ namespace Casino.PlayerNamespace
     public class Player
     {
         public int bank { set; get; }
+        public int bet { set; get; }
         public Player(int bankAmount)
         {
             this.bank = bankAmount;
@@ -23,7 +24,7 @@ namespace Casino.PlayerNamespace
         }
         public bool validBet(int betAmount)
         {
-            if (negativeBet)
+            if (negativeBet(betAmount))
             {
                 Console.WriteLine($"Invalid bet: bet '{betAmount}' is negative.");
                 return false;
@@ -38,6 +39,7 @@ namespace Casino.PlayerNamespace
         public void deductBet(int betAmount) {
             this.bank -= betAmount;
         }
+       
 
     }
 }
