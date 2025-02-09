@@ -35,5 +35,9 @@ namespace Casino.PlayerNamespace
             }
             else return true;
         }
+        public void deductBet(int betAmount) {
+            this.bank -= betAmount;
+        }
+
     }
 }
