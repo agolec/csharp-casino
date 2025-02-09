@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using Casino.PlayerNamespace;
 
@@ -177,37 +178,39 @@ namespace Casino
         {
             do
             {
-                GetBetInput(player, ref bet);
-                if (player.validBet(bet){
+                bet = GetBetInput(player);
+                if (player.validBet(bet)){
                     Console.WriteLine("Valid bet made.");
                     validWager = true;
                 }
             } while (!validWager);
         }
 
-        private void GetBetInput(Player player, ref int bet)
+        private int GetBetInput(Player player)
+        {
+            bool successfullyParsed = false;
+            int bet = 0;
+            do
+            {
+                Console.WriteLine("Place your bet: ");
+                successfullyParsed = CanParseInput(bet);
+            } while (!successfullyParsed);
+            return bet;
+        }
+
+        private bool CanParseInput(int bet)
         {
             try
             {
                 bet = int.Parse(Console.ReadLine());
-                if (this.ValidWager(player, bet))
-                {
-                    validWager = true;
-                }
-                else
-                {
-                    Console.WriteLine("Invalid wager.");
-                    Console.WriteLine("Place your bet: ");
-                }
-
+                return true;
             }
             catch (FormatException e)
             {
                 Console.WriteLine("Error: bet must be numeric");
-                Console.WriteLine("Place your bet: ");
+                return false;
             }
         }
-
         public void PayoutToPlayer()
         {
             //todo
