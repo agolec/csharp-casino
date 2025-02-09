@@ -48,16 +48,19 @@ namespace Casino.Loop
         }
         void PlaySlots()
         {
+            SlotLoop();
+        }
+
+        private void SlotLoop()
+        {
             SlotMachine slots = new SlotMachine();
             bool bankEmpty = this._player.playerBankEmpty();
             do
             {
-                slots.placeBet(this._player);
+                this._player.deductBet(slots.placeBet(this._player));
                 slots.SpinReels();
-            } while (this._player.playerBankEmpty());
-            
-            Console.WriteLine("ToDo: implement slots.");
+            } while (!this._player.playerBankEmpty());
+
         }
-       
     }
 }
