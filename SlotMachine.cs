@@ -177,11 +177,15 @@ namespace Casino
         {
             do
             {
-                GetBetInput(player, ref bet, ref validWager);
+                GetBetInput(player, ref bet);
+                if (player.validBet(bet){
+                    Console.WriteLine("Valid bet made.");
+                    validWager = true;
+                }
             } while (!validWager);
         }
 
-        private void GetBetInput(Player player, ref int bet, ref bool validWager)
+        private void GetBetInput(Player player, ref int bet)
         {
             try
             {
