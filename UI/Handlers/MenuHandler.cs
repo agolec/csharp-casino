@@ -10,6 +10,7 @@ namespace Casino.UI.Handlers
     {
         private Menu _mainMenu;
         private Menu _slotsMenu;
+        private Menu _statsMenu;
 
         public MenuHandler()
         {
@@ -19,6 +20,7 @@ namespace Casino.UI.Handlers
         {
             _mainMenu = new Menu("Casino", "Play Solitare", "Play Slots");
             _slotsMenu = new Menu("Play Slots",false,"Place Bet", "View Payout Table", "Check Balance", "Change Bet Amount", "Auto-Spin", "Exit to Main Menu");
+            _statsMenu = new Menu("Stats", false, "Return to Game");
         }
 
         public int GetMainMenuSelection()
@@ -28,6 +30,10 @@ namespace Casino.UI.Handlers
         public int GetSlotsMenuSelection()
         {
             return _slotsMenu.GetUserSelection();
+        }
+        public int GetStatsMenuSelection()
+        {
+            return _statsMenu.GetUserSelection();
         }
 
     }

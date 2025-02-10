@@ -46,7 +46,7 @@ namespace Casino.UI
 
             PrintTitle();
             PrintBorder(this._borderCharacter, this._longestMenuOption);
-            for (int i = 0; i < this._menuOptions.Count -1; i++)
+            for (int i = 0; i < this._menuOptions.Count; i++)
             {
                 Console.WriteLine($"{(i+1)}) {this._menuOptions[i]}");
             }

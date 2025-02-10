@@ -10,7 +10,7 @@ namespace Casino.UI.Menus
     {
         PLACE_BET = 1,
         VIEW_PAYOUT = 2,
-        CHECK_BALANCE = 3,
+        CHECK_STATS = 3,
         CHANGE_BET = 4,
         AUTO_SPIN = 5,
         EXIT_TO_MAIN_MENU = 6
