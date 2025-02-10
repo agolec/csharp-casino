@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using Casino.PlayerNamespace;
+using Casino.Util;
 
 namespace Casino
 {
@@ -169,7 +170,6 @@ namespace Casino
         {
             int bet = 0;
             bool validWager = false;
-            Console.WriteLine("Place your bet: ");
             PromptUntilBetIsValid(player, ref bet, ref validWager);
             return bet;
         }
@@ -188,28 +188,12 @@ namespace Casino
 
         private int GetBetInput(Player player)
         {
-            bool successfullyParsed = false;
-            int bet = 0;
-            do
-            {
-                Console.WriteLine("Place your bet: ");
-                successfullyParsed = CanParseInput(bet);
-            } while (!successfullyParsed);
-            return bet;
-        }
+            String prompt = "Place your bet: ";
+            String errorMessage = "Error: Bet must be numeric.";
 
-        private bool CanParseInput(int bet)
-        {
-            try
-            {
-                bet = int.Parse(Console.ReadLine());
-                return true;
-            }
-            catch (FormatException e)
-            {
-                Console.WriteLine("Error: bet must be numeric");
-                return false;
-            }
+            int bet = Input.GetNumberFromInput(prompt, errorMessage);
+
+            return bet;
         }
         public void PayoutToPlayer()
         {
