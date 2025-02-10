@@ -71,8 +71,9 @@ namespace Casino.Loop
                             Console.WriteLine("Going to place bet;");
                             SlotLoop();
                             break;
-                        case (int)SlotsMenuOptions.CHECK_BALANCE:
-                            Console.WriteLine("Checking balance: ");
+                        case (int)SlotsMenuOptions.CHECK_STATS:
+                            Console.WriteLine("Checking stats");
+                            DisplayStatsMenu();
                             break;
                         case (int)SlotsMenuOptions.VIEW_PAYOUT:
                             Console.WriteLine("Viewing payout...");
@@ -88,6 +89,22 @@ namespace Casino.Loop
                             break;
                 }
             } while (running);
+        }
+        private void DisplayStatsMenu()
+        {
+            bool displayMenu = true;
+            do
+            {
+                switch (_menuHandler.GetStatsMenuSelection())
+                {
+                    case (int)StatsMenuOptions.RETURN_TO_GAME:
+                        displayMenu = false;
+                        break;
+                    default:
+                        Console.WriteLine("Error: invalid menu input.");
+                        break;
+                }
+            } while (displayMenu);
         }
     }
 }
