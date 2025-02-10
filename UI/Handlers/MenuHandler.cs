@@ -70,7 +70,7 @@ namespace Casino.UI.Handlers
                         break;
                     case (int)SlotsMenuOptions.CHECK_STATS:
                         Console.WriteLine("Checking stats");
-                        game.DisplayStatsMenu();
+                        this.HandleStatsMenu();
                         break;
                     case (int)SlotsMenuOptions.VIEW_PAYOUT:
                         Console.WriteLine("Viewing payout...");
