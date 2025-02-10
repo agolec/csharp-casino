@@ -14,7 +14,6 @@ namespace Casino.Loop
     {
         private Player _player;
         private MenuHandler _menuHandler;
-        ConsoleKeyInfo mainMenuOption;
       
         public Game(Player player, MenuHandler menuHandler)
         {
@@ -26,7 +25,6 @@ namespace Casino.Loop
         public void Run()
         {
             bool running = true;
-            string userInput;
             do
             {
 
@@ -48,37 +46,48 @@ namespace Casino.Loop
         }
         void PlaySlots()
         {
-            //SlotMachine slots = new SlotMachine();
-            //placeBet(slots);
-            Console.WriteLine("ToDo: implement slots.");
+            DisplaySlotMenu();
         }
-        public int placeBet(SlotMachine slots)
+
+        private void SlotLoop()
         {
-            int bet = 0;
-            bool validWager = false;
-            Console.WriteLine("Place your bet: ");
+            SlotMachine slots = new SlotMachine();
+            bool bankEmpty = this._player.playerBankEmpty();
             do
             {
-                try
-                {
-                    bet = int.Parse(Console.ReadLine());
-                    if (slots.ValidWager(this._player, bet)){
-                        validWager = true;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid wager.");
-                        Console.WriteLine("Place your bet: ");
-                    }
+                this._player.deductBet(slots.placeBet(this._player));
+                slots.SpinReels();
+            } while (!this._player.playerBankEmpty());
 
-                }
-                catch (FormatException e)
+        }
+        private void DisplaySlotMenu()
+        {
+            bool running = true;
+            do
+            {
+                switch (_menuHandler.GetSlotsMenuSelection())
                 {
-                    Console.WriteLine("Error: bet must be numeric");
-                    Console.WriteLine("Place your bet: ");
+                        case (int)SlotsMenuOptions.PLACE_BET:
+                            Console.WriteLine("Going to place bet;");
+                            SlotLoop();
+                            break;
+                        case (int)SlotsMenuOptions.CHECK_BALANCE:
+                            Console.WriteLine("Checking balance: ");
+                            break;
+                        case (int)SlotsMenuOptions.VIEW_PAYOUT:
+                            Console.WriteLine("Viewing payout...");
+                            break;
+                        case (int)SlotsMenuOptions.CHANGE_BET:
+                            Console.WriteLine("Changing Bet");
+                            break;
+                        case (int)SlotsMenuOptions.AUTO_SPIN:
+                            Console.WriteLine("Auto spin");
+                            break;
+                        case (int)SlotsMenuOptions.EXIT_TO_MAIN_MENU:
+                            running = false;
+                            break;
                 }
-            } while (!validWager);
-            return bet;
+            } while (running);
         }
     }
 }
