@@ -21,7 +21,7 @@ namespace Casino.UI.Handlers
         private void InitializeMenus()
         {
             _mainMenu = new Menu("Casino", "Play Solitare", "Play Slots");
-            _slotsMenu = new Menu("Play Slots",false,"Place Bet", "View Payout Table", "Check Balance", "Change Bet Amount", "Auto-Spin", "Exit to Main Menu");
+            _slotsMenu = new Menu("Play Slots",false,"Place Bet", "View Payout Table", "Check Stats", "Change Bet Amount", "Auto-Spin", "Exit to Main Menu");
             _statsMenu = new Menu("Stats", false, "Return to Game");
         }
 
