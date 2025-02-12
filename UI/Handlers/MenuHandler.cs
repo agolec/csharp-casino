@@ -67,7 +67,7 @@ namespace Casino.UI.Handlers
                     case (int)SlotsMenuOptions.PLACE_BET:
                         Console.WriteLine("Going to place bet;");
                         slotGame.Bet = slotGame.PromptForUserBet();
-                        Console.WriteLine(slotGame.DisplayBet());
+                        slotGame.DisplayBet();
                         break;
                     case (int)SlotsMenuOptions.CHECK_STATS:
                         Console.WriteLine("Checking stats");
