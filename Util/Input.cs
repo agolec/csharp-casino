@@ -8,7 +8,7 @@ namespace Casino.Util
 {
     internal class Input
     {
-        public static int GetNumberFromInput(string prompt, string errorMessage)
+        public static int GetNumberFromInput(string prompt)
         {
             int number;
             do
@@ -18,7 +18,7 @@ namespace Casino.Util
                 {
                     return number;
                 }
-                Console.WriteLine(errorMessage);
+                Console.WriteLine("Error: unable to parse input into a number.");
             } while (true);
         }
     }
