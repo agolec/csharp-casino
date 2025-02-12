@@ -57,7 +57,7 @@ namespace Casino.UI.Handlers
                     return true;
             }
         }
-        public void RunSlotsMenu(Game game)
+        public void RunSlotsMenu(SlotsGame slotGame)
         {
             bool running = true;
             while (running)
@@ -66,7 +66,8 @@ namespace Casino.UI.Handlers
                 {
                     case (int)SlotsMenuOptions.PLACE_BET:
                         Console.WriteLine("Going to place bet;");
-                        game.PullLever();
+                        slotGame.Bet = slotGame.PromptForUserBet();
+                        Console.WriteLine(slotGame.DisplayBet());
                         break;
                     case (int)SlotsMenuOptions.CHECK_STATS:
                         Console.WriteLine("Checking stats");
@@ -80,6 +81,9 @@ namespace Casino.UI.Handlers
                         break;
                     case (int)SlotsMenuOptions.AUTO_SPIN:
                         Console.WriteLine("Auto spin");
+                        break;
+                    case (int)SlotsMenuOptions.PULL_LEVER:
+                        slotGame.PullLever();
                         break;
                     case (int)SlotsMenuOptions.EXIT_TO_MAIN_MENU:
                         running = false;
