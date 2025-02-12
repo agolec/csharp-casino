@@ -7,6 +7,7 @@ using Casino.PlayerNamespace;
 using Casino.UI;
 using Casino.UI.Menus;
 using Casino.UI.Handlers;
+using Casino.Loop;
 
 namespace Casino.Loop
 {
@@ -32,18 +33,9 @@ namespace Casino.Loop
         }
         public void PlaySlots()
         {
-            _menuHandler.RunSlotsMenu(this);
-        }
-
-        public void PullLever()
-        {
-            SlotMachine slots = new SlotMachine();
-            while (!_player.playerBankEmpty())
-            {
-                _player.deductBet(slots.placeBet(_player));
-                slots.SpinReels();
-            }
-
+            SlotMachine machine = new SlotMachine();
+            SlotsGame slotsGame = new SlotsGame(_player, machine);
+            _menuHandler.RunSlotsMenu(slotsGame);
         }
     }
 }
