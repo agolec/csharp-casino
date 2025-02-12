@@ -25,86 +25,25 @@ namespace Casino.Loop
         public void Run()
         {
             bool running = true;
-            do
+            while(running)
             {
-
-                switch (this._menuHandler.GetMainMenuSelection())
-                {
-                    case (int)MainMenuOptions.SOLITARE:
-                        Console.WriteLine("ToDo: make Solitare game.");
-                        break;
-                    case (int)MainMenuOptions.SLOTS:
-                        Console.WriteLine("going to play slots.");
-                        PlaySlots();
-                        break;
-                    case (int)MainMenuOptions.EXIT:
-                        Console.WriteLine("Exiting program.");
-                        running = false;
-                        break;
-                }
-            } while (running);
+                running = _menuHandler.RunMainMenu(this);
+            }
         }
-        void PlaySlots()
+        public void PlaySlots()
         {
-            DisplaySlotMenu();
+            _menuHandler.RunSlotsMenu(this);
         }
 
-        private void SlotLoop()
+        public void PullLever()
         {
             SlotMachine slots = new SlotMachine();
-            bool bankEmpty = this._player.playerBankEmpty();
-            do
+            while (!_player.playerBankEmpty())
             {
-                this._player.deductBet(slots.placeBet(this._player));
+                _player.deductBet(slots.placeBet(_player));
                 slots.SpinReels();
-            } while (!this._player.playerBankEmpty());
+            }
 
-        }
-        private void DisplaySlotMenu()
-        {
-            bool running = true;
-            do
-            {
-                switch (_menuHandler.GetSlotsMenuSelection())
-                {
-                        case (int)SlotsMenuOptions.PLACE_BET:
-                            Console.WriteLine("Going to place bet;");
-                            SlotLoop();
-                            break;
-                        case (int)SlotsMenuOptions.CHECK_STATS:
-                            Console.WriteLine("Checking stats");
-                            DisplayStatsMenu();
-                            break;
-                        case (int)SlotsMenuOptions.VIEW_PAYOUT:
-                            Console.WriteLine("Viewing payout...");
-                            break;
-                        case (int)SlotsMenuOptions.CHANGE_BET:
-                            Console.WriteLine("Changing Bet");
-                            break;
-                        case (int)SlotsMenuOptions.AUTO_SPIN:
-                            Console.WriteLine("Auto spin");
-                            break;
-                        case (int)SlotsMenuOptions.EXIT_TO_MAIN_MENU:
-                            running = false;
-                            break;
-                }
-            } while (running);
-        }
-        private void DisplayStatsMenu()
-        {
-            bool displayMenu = true;
-            do
-            {
-                switch (_menuHandler.GetStatsMenuSelection())
-                {
-                    case (int)StatsMenuOptions.RETURN_TO_GAME:
-                        displayMenu = false;
-                        break;
-                    default:
-                        Console.WriteLine("Error: invalid menu input.");
-                        break;
-                }
-            } while (displayMenu);
         }
     }
 }
