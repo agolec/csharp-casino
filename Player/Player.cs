@@ -24,6 +24,11 @@ namespace Casino.PlayerNamespace
         }
         public bool validBet(int betAmount)
         {
+            if (this.playerBankEmpty())
+            {
+                Console.WriteLine($"Invalid bet: player bank empty.");
+                return false;
+            }
             if (negativeBet(betAmount))
             {
                 Console.WriteLine($"Invalid bet: bet '{betAmount}' is negative.");

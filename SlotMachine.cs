@@ -85,7 +85,7 @@ namespace Casino
         // Validate the wager
         public bool ValidWager(Player player, int wager)
         {
-            return !(player.playerBankEmpty() || wager > player.bank);
+            return player.validBet(wager);
         }
 
         // Spin the reels
@@ -191,7 +191,7 @@ namespace Casino
             String prompt = "Place your bet: ";
             String errorMessage = "Error: Bet must be numeric.";
 
-            int bet = Input.GetNumberFromInput(prompt, errorMessage);
+            int bet = Input.GetNumberFromInput(prompt);
 
             return bet;
         }

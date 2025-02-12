@@ -13,6 +13,7 @@ namespace Casino.UI.Menus
         CHECK_STATS = 3,
         CHANGE_BET = 4,
         AUTO_SPIN = 5,
-        EXIT_TO_MAIN_MENU = 6
+        PULL_LEVER = 6,
+        EXIT_TO_MAIN_MENU = 7
     }
 }
