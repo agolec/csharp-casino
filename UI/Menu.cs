@@ -12,6 +12,7 @@ namespace Casino.UI
         private string _title { set; get; }
         private char _borderCharacter { get; set; }
         private int _longestMenuOption { get; set; }
+        private bool _quitOption { get; set; }
         /// <summary>
         /// Menu constructor which adds an implicit Quit option.
         /// </summary>
@@ -43,10 +44,16 @@ namespace Casino.UI
         private void DisplayMenu()
         {
 
+            PrintTitle();
             PrintBorder(this._borderCharacter, this._longestMenuOption);
             for (int i = 0; i < this._menuOptions.Count; i++)
             {
                 Console.WriteLine($"{(i+1)}) {this._menuOptions[i]}");
+            }
+            if (this._quitOption)
+            {
+                Console.WriteLine($"Q/quit to quit) {this._menuOptions[(this._menuOptions.Count - 1)]}");
+
             }
             PrintBorder(this._borderCharacter,this._longestMenuOption);
         }
@@ -81,12 +88,15 @@ namespace Casino.UI
             if (quit)
             {
                 this._menuOptions.Add("quit");
+                this._quitOption = true;
+            }
+            else { 
+                this._quitOption = false;
             }
         }
         public int GetUserSelection()
         {
             
-            bool validInput = false;
             bool hasQuitOption = _menuOptions.Contains("quit");
             while (true)
             {
