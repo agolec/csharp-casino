@@ -61,9 +61,9 @@ namespace Casino.Loop
         {
             return Util.Input.GetNumberFromInput("Enter your bet: ");
         }
-        public String DisplayBet()
+        public void DisplayBet()
         {
-            return $"Current bet: {Bet}";
+            Console.WriteLine($"Current bet: {Bet}");
         }
         public override string ToString()
         {
